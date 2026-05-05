@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="stock"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="../dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-gray-600 font-medium">Inventory</span>
+          <span>/</span><span class="text-orange-500 font-medium">Stock</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg">Stock Management</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openModal('addStockModal')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Stock
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+      <!-- Low Stock Alert -->
+      <div class="bg-amber-50 border border-amber-300 rounded-2xl p-4 mb-6 flex items-start gap-3">
+        <div class="w-8 h-8 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-amber-800 text-sm">15 items have low stock levels</p>
+          <p class="text-xs text-amber-600 mt-0.5">USB-C Cables (5), Wireless Mouse (8), Monitor Stands (3) and 12 more. <button class="underline font-medium">View all alerts →</button></p>
+        </div>
+        <button class="text-amber-400 hover:text-amber-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm"><p class="text-xs text-gray-400 mb-2">Total Items</p><p class="text-2xl font-bold text-gray-900">1,842</p><p class="text-xs text-green-600 font-medium mt-1">+46 this week</p></div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm"><p class="text-xs text-gray-400 mb-2">Low Stock</p><p class="text-2xl font-bold text-amber-500">15</p><p class="text-xs text-amber-600 font-medium mt-1">Needs restocking</p></div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm"><p class="text-xs text-gray-400 mb-2">Out of Stock</p><p class="text-2xl font-bold text-red-500">3</p><p class="text-xs text-red-500 font-medium mt-1">Urgent reorder</p></div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm"><p class="text-xs text-gray-400 mb-2">Total Value</p><p class="text-2xl font-bold text-gray-900">$284K</p><p class="text-xs text-gray-400 mt-1">At cost price</p></div>
+      </div>
+
+      <!-- Table -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between px-5 py-4 gap-3 border-b border-gray-50">
+          <h3 class="font-bold text-gray-900">Product Inventory</h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+              <input id="stockSearch" type="text" placeholder="Search products..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 w-48">
+            </div>
+            <select class="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 text-gray-600">
+              <option>All Categories</option>
+              <option>Electronics</option>
+              <option>Accessories</option>
+              <option>Furniture</option>
+              <option>Software</option>
+            </select>
+            <button onclick="showToast('Inventory exported','success')" class="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full data-table text-sm" id="stockTable">
+            <thead>
+              <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                <th class="px-5 py-3 text-left">Product</th>
+                <th class="px-5 py-3 text-left">SKU</th>
+                <th class="px-5 py-3 text-left">Category</th>
+                <th class="px-5 py-3 text-left">Supplier</th>
+                <th class="px-5 py-3 text-right">Cost</th>
+                <th class="px-5 py-3 text-center">Quantity</th>
+                <th class="px-5 py-3 text-center">Min Stock</th>
+                <th class="px-5 py-3 text-left">Status</th>
+                <th class="px-5 py-3 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50" id="stockBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="px-5 py-3 border-t border-gray-50 text-xs text-gray-400">Showing 1–10 of 1,842 products</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Stock Modal -->
+  <div id="addStockModal" class="modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+      <div class="flex items-center justify-between p-5 border-b border-gray-100">
+        <h3 class="font-bold text-gray-900 text-lg">Add New Product</h3>
+        <button onclick="closeModal('addStockModal')" class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-gray-100 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form onsubmit="addProduct(event)" class="p-5 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Product Name *</label>
+          <input type="text" id="prodName" required placeholder="e.g. Laptop Stand Pro" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">SKU Code *</label>
+            <input type="text" id="prodSku" required placeholder="SKU-001" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Category</label>
+            <select id="prodCat" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+              <option>Electronics</option>
+              <option>Accessories</option>
+              <option>Furniture</option>
+              <option>Software</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Unit Cost ($)</label>
+            <input type="number" id="prodCost" placeholder="49.99" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Quantity</label>
+            <input type="number" id="prodQty" placeholder="100" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Min Stock</label>
+            <input type="number" id="prodMin" placeholder="20" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Supplier</label>
+          <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+            <option>TechSource Global</option>
+            <option>Innovate Parts Co</option>
+            <option>Alpha Supplies</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeModal('addStockModal')" class="flex-1 py-2.5 border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600">Add Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const products = [
+      { name:'MacBook Pro 16"', sku:'SKU-EL-001', cat:'Electronics', supplier:'TechSource Global', cost:2199, qty:45, min:10 },
+      { name:'USB-C Hub 7-in-1', sku:'SKU-AC-002', cat:'Accessories', supplier:'Innovate Parts Co', cost:49, qty:5, min:15 },
+      { name:'Wireless Mouse', sku:'SKU-AC-003', cat:'Accessories', supplier:'Alpha Supplies', cost:35, qty:8, min:20 },
+      { name:'27" 4K Monitor', sku:'SKU-EL-004', cat:'Electronics', supplier:'TechSource Global', cost:599, qty:22, min:5 },
+      { name:'Ergonomic Chair', sku:'SKU-FU-005', cat:'Furniture', supplier:'Office World', cost:450, qty:18, min:5 },
+      { name:'Standing Desk', sku:'SKU-FU-006', cat:'Furniture', supplier:'Office World', cost:750, qty:12, min:3 },
+      { name:'Microsoft 365 Lic', sku:'SKU-SW-007', cat:'Software', supplier:'Microsoft', cost:15, qty:248, min:50 },
+      { name:'Mechanical Keyboard', sku:'SKU-AC-008', cat:'Accessories', supplier:'Innovate Parts Co', cost:120, qty:34, min:10 },
+      { name:'HD Webcam Pro', sku:'SKU-EL-009', cat:'Electronics', supplier:'TechSource Global', cost:89, qty:0, min:10 },
+      { name:'Monitor Stand Arm', sku:'SKU-AC-010', cat:'Accessories', supplier:'Alpha Supplies', cost:65, qty:3, min:8 }
+    ];
+
+    function getStockStatus(qty, min) {
+      if (qty === 0) return { label:'Out of Stock', cls:'badge-cancelled' };
+      if (qty < min) return { label:'Low Stock', cls:'badge-lowstock' };
+      return { label:'In Stock', cls:'badge-active' };
+    }
+
+    function renderStock() {
+      document.getElementById('stockBody').innerHTML = products.map(p => {
+        const s = getStockStatus(p.qty, p.min);
+        const pct = Math.min((p.qty / (p.min * 3)) * 100, 100);
+        const barColor = p.qty === 0 ? 'bg-red-400' : p.qty < p.min ? 'bg-amber-400' : 'bg-green-400';
+        return `<tr class="hover:bg-orange-50/30">
+          <td class="px-5 py-3.5 font-medium text-gray-800">${p.name}</td>
+          <td class="px-5 py-3.5 font-mono text-xs text-gray-500">${p.sku}</td>
+          <td class="px-5 py-3.5"><span class="px-2.5 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs font-semibold">${p.cat}</span></td>
+          <td class="px-5 py-3.5 text-gray-500 text-sm">${p.supplier}</td>
+          <td class="px-5 py-3.5 text-right font-semibold text-gray-900">$${p.cost}</td>
+          <td class="px-5 py-3.5 text-center">
+            <div class="flex flex-col items-center gap-1">
+              <span class="font-bold text-gray-900">${p.qty}</span>
+              <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden"><div class="${barColor} h-full rounded-full progress-bar" style="width:${pct}%"></div></div>
+            </div>
+          </td>
+          <td class="px-5 py-3.5 text-center text-gray-400 text-sm">${p.min}</td>
+          <td class="px-5 py-3.5"><span class="${s.cls} px-2.5 py-0.5 rounded-full text-xs font-semibold">${s.label}</span></td>
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-1">
+              <button onclick="showToast('Stock updated','success')" class="px-2.5 py-1 bg-orange-50 text-orange-600 text-xs font-semibold rounded-lg hover:bg-orange-100">+ Restock</button>
+              <button onclick="showToast('Item removed','error')" class="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function addProduct(e) {
+      e.preventDefault();
+      const name = document.getElementById('prodName').value;
+      products.unshift({ name, sku: document.getElementById('prodSku').value, cat: document.getElementById('prodCat').value, supplier:'TechSource Global', cost: parseFloat(document.getElementById('prodCost').value)||0, qty: parseInt(document.getElementById('prodQty').value)||0, min: parseInt(document.getElementById('prodMin').value)||10 });
+      renderStock();
+      closeModal('addStockModal');
+      showToast(`${name} added to inventory`, 'success');
+      e.target.reset();
+    }
+
+    renderStock();
+    initTableSearch('stockSearch','stockTable');
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="customers"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="../dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-gray-600 font-medium">Sales</span>
+          <span>/</span><span class="text-orange-500 font-medium">Customers</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg">Customer Management</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openModal('addCustModal')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 shadow-sm transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Customer
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">142</p><p class="text-xs text-gray-500">Total Customers</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">118</p><p class="text-xs text-gray-500">Active Accounts</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">28</p><p class="text-xs text-gray-500">VIP Clients</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">$124.5K</p><p class="text-xs text-gray-500">Revenue (May)</p></div>
+        </div>
+      </div>
+
+      <!-- Top Customers -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="bg-gradient-to-br from-orange-500 to-amber-500 rounded-2xl p-5 text-white">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 bg-white bg-opacity-25 rounded-xl flex items-center justify-center text-white font-bold text-xl">A</div>
+            <div>
+              <p class="font-bold">Acme Corp</p>
+              <p class="text-orange-100 text-xs">Top Customer · Enterprise</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="bg-white bg-opacity-15 rounded-xl p-2.5"><p class="text-orange-100 text-xs">Total Spent</p><p class="font-bold">$48,200</p></div>
+            <div class="bg-white bg-opacity-15 rounded-xl p-2.5"><p class="text-orange-100 text-xs">Orders</p><p class="font-bold">24</p></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-bold text-xl">G</div>
+            <div>
+              <p class="font-bold text-gray-900">Globex Ltd</p>
+              <p class="text-gray-400 text-xs">2nd Highest · Enterprise</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="bg-orange-50 rounded-xl p-2.5"><p class="text-gray-400 text-xs">Total Spent</p><p class="font-bold text-gray-900">$32,600</p></div>
+            <div class="bg-orange-50 rounded-xl p-2.5"><p class="text-gray-400 text-xs">Orders</p><p class="font-bold text-gray-900">18</p></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 font-bold text-xl">S</div>
+            <div>
+              <p class="font-bold text-gray-900">Stark Industries</p>
+              <p class="text-gray-400 text-xs">3rd Highest · Enterprise</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div class="bg-orange-50 rounded-xl p-2.5"><p class="text-gray-400 text-xs">Total Spent</p><p class="font-bold text-gray-900">$28,900</p></div>
+            <div class="bg-orange-50 rounded-xl p-2.5"><p class="text-gray-400 text-xs">Orders</p><p class="font-bold text-gray-900">15</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Table -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between px-5 py-4 gap-3 border-b border-gray-50">
+          <h3 class="font-bold text-gray-900">All Customers</h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+              <input id="custSearch" type="text" placeholder="Search customers..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 w-52">
+            </div>
+            <select class="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 text-gray-600">
+              <option>All Types</option>
+              <option>Enterprise</option>
+              <option>SME</option>
+              <option>Individual</option>
+            </select>
+            <button onclick="showToast('Customer list exported','success')" class="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full data-table text-sm" id="custTable">
+            <thead>
+              <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                <th class="px-5 py-3 text-left">Customer</th>
+                <th class="px-5 py-3 text-left">Contact</th>
+                <th class="px-5 py-3 text-left">Type</th>
+                <th class="px-5 py-3 text-left">Country</th>
+                <th class="px-5 py-3 text-right">Total Orders</th>
+                <th class="px-5 py-3 text-right">Total Spend</th>
+                <th class="px-5 py-3 text-left">Last Order</th>
+                <th class="px-5 py-3 text-left">Status</th>
+                <th class="px-5 py-3 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50" id="custBody"></tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-between px-5 py-3 border-t border-gray-50 text-xs text-gray-400">
+          <span>Showing 1–10 of 142 customers</span>
+          <div class="flex items-center gap-1">
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">← Prev</button>
+            <button class="px-3 py-1.5 rounded-lg bg-orange-500 text-white font-semibold">1</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">2</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">3</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">Next →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Customer Modal -->
+  <div id="addCustModal" class="modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+      <div class="flex items-center justify-between p-5 border-b border-gray-100">
+        <h3 class="font-bold text-gray-900 text-lg">Add New Customer</h3>
+        <button onclick="closeModal('addCustModal')" class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-gray-100 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form onsubmit="addCustomer(event)" class="p-5 space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company / Customer Name *</label>
+          <input type="text" id="custName" required placeholder="e.g. Acme Corporation" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Contact Person *</label>
+            <input type="text" id="custContact" required placeholder="John Smith" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Email *</label>
+            <input type="email" required placeholder="john@company.com" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Phone</label>
+            <input type="tel" placeholder="+1 555 000 0000" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Customer Type</label>
+            <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+              <option>Enterprise</option>
+              <option>SME</option>
+              <option>Individual</option>
+              <option>Government</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Country / Region</label>
+          <input type="text" placeholder="United States" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Notes</label>
+          <textarea rows="2" placeholder="Special requirements, notes..." class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"></textarea>
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeModal('addCustModal')" class="flex-1 py-2.5 border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600">Add Customer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const customers = [
+      { name:'Acme Corp', contact:'Tom Hardy', email:'tom@acme.com', type:'Enterprise', country:'USA', orders:24, spend:48200, lastOrder:'May 5, 2026', status:'active', vip:true },
+      { name:'Globex Ltd', contact:'Lisa Park', email:'lisa@globex.com', type:'Enterprise', country:'UK', orders:18, spend:32600, lastOrder:'May 4, 2026', status:'active', vip:true },
+      { name:'Stark Industries', contact:'Tony Stark', email:'tony@stark.com', type:'Enterprise', country:'USA', orders:15, spend:28900, lastOrder:'Apr 30, 2026', status:'active', vip:true },
+      { name:'Initech Inc', contact:'Bill Lumbergh', email:'bill@initech.com', type:'SME', country:'USA', orders:12, spend:18400, lastOrder:'May 3, 2026', status:'active', vip:false },
+      { name:'Umbrella Co', contact:'Albert Wesker', email:'a.wesker@umbrella.com', type:'Enterprise', country:'Japan', orders:9, spend:14200, lastOrder:'May 2, 2026', status:'active', vip:false },
+      { name:'Wayne Corp', contact:'Bruce Wayne', email:'bruce@wayne.com', type:'Enterprise', country:'USA', orders:8, spend:12100, lastOrder:'Apr 29, 2026', status:'active', vip:true },
+      { name:'Massive Dyn', contact:'Walter Bishop', email:'w.bishop@massive.com', type:'SME', country:'USA', orders:6, spend:9800, lastOrder:'May 1, 2026', status:'inactive', vip:false },
+      { name:'Oscorp Ltd', contact:'Norman Osborn', email:'n.osborn@oscorp.com', type:'SME', country:'USA', orders:5, spend:7200, lastOrder:'Apr 28, 2026', status:'active', vip:false },
+    ];
+
+    const typeColors = { Enterprise:'bg-purple-50 text-purple-700', SME:'bg-blue-50 text-blue-700', Individual:'bg-gray-100 text-gray-600', Government:'bg-green-50 text-green-700' };
+    const iconColors = ['from-orange-400 to-amber-400','from-blue-400 to-indigo-400','from-emerald-400 to-teal-400','from-purple-400 to-pink-400','from-red-400 to-orange-400','from-cyan-400 to-blue-400','from-amber-400 to-yellow-400','from-rose-400 to-pink-400'];
+
+    function renderCustomers() {
+      document.getElementById('custBody').innerHTML = customers.map((c, i) => `
+        <tr class="hover:bg-orange-50/30">
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 bg-gradient-to-br ${iconColors[i%iconColors.length]} rounded-xl flex items-center justify-center text-white font-bold text-sm flex-shrink-0">${c.name[0]}</div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <p class="font-semibold text-gray-800">${c.name}</p>
+                  ${c.vip ? '<span class="text-amber-400 text-xs">★</span>' : ''}
+                </div>
+                <p class="text-xs text-gray-400">${c.email}</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-5 py-3.5 text-gray-600 text-sm">${c.contact}</td>
+          <td class="px-5 py-3.5"><span class="${typeColors[c.type]||'bg-gray-100 text-gray-600'} px-2.5 py-1 rounded-lg text-xs font-semibold">${c.type}</span></td>
+          <td class="px-5 py-3.5 text-gray-500 text-sm">${c.country}</td>
+          <td class="px-5 py-3.5 text-right font-semibold text-gray-900">${c.orders}</td>
+          <td class="px-5 py-3.5 text-right font-bold text-gray-900">$${c.spend.toLocaleString()}</td>
+          <td class="px-5 py-3.5 text-gray-400 text-xs">${c.lastOrder}</td>
+          <td class="px-5 py-3.5"><span class="${c.status==='active'?'badge-active':'badge-inactive'} px-2.5 py-0.5 rounded-full text-xs font-semibold">${c.status==='active'?'Active':'Inactive'}</span></td>
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-1">
+              <button onclick="showToast('Opening ${c.name} profile','info')" class="px-2.5 py-1 bg-orange-50 text-orange-600 text-xs font-semibold rounded-lg hover:bg-orange-100">View</button>
+              <a href="orders.html" class="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-lg hover:bg-amber-100">Orders</a>
+            </div>
+          </td>
+        </tr>`).join('');
+    }
+
+    function addCustomer(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value;
+      customers.unshift({ name, contact: document.getElementById('custContact').value, email:'new@company.com', type:'SME', country:'Unknown', orders:0, spend:0, lastOrder:'—', status:'active', vip:false });
+      renderCustomers();
+      closeModal('addCustModal');
+      showToast(`${name} added successfully`, 'success');
+      e.target.reset();
+    }
+
+    renderCustomers();
+    initTableSearch('custSearch','custTable');
+  </script>
+</body>
+</html>

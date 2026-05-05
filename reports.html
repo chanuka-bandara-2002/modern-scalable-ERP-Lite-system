@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Reports – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="reports"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="../dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-gray-600 font-medium">Finance</span>
+          <span>/</span><span class="text-orange-500 font-medium">Reports</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg">Financial Reports</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl p-1">
+          <button onclick="setPeriod('q1')" id="btn-q1" class="period-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-gray-500 hover:bg-white">Q1</button>
+          <button onclick="setPeriod('q2')" id="btn-q2" class="period-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-orange-500 text-white shadow-sm">Q2</button>
+          <button onclick="setPeriod('ytd')" id="btn-ytd" class="period-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-gray-500 hover:bg-white">YTD</button>
+        </div>
+        <button onclick="showToast('Report exported as PDF','success')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Export PDF
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+8.5%</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900">$582,500</p>
+          <p class="text-xs text-gray-500 mt-0.5">Total Revenue (Q2)</p>
+          <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-orange-500 h-1.5 rounded-full" style="width:72%"></div></div>
+        </div>
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-red-500 bg-red-50 px-2 py-0.5 rounded-full">+4.2%</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900">$430,800</p>
+          <p class="text-xs text-gray-500 mt-0.5">Total Expenses (Q2)</p>
+          <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-red-400 h-1.5 rounded-full" style="width:54%"></div></div>
+        </div>
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+18.7%</span>
+          </div>
+          <p class="text-2xl font-bold text-emerald-600">$151,700</p>
+          <p class="text-xs text-gray-500 mt-0.5">Net Profit (Q2)</p>
+          <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-emerald-500 h-1.5 rounded-full" style="width:26%"></div></div>
+        </div>
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">26.0%</span>
+          </div>
+          <p class="text-2xl font-bold text-gray-900">26.0%</p>
+          <p class="text-xs text-gray-500 mt-0.5">Profit Margin</p>
+          <div class="mt-3 w-full bg-gray-100 rounded-full h-1.5"><div class="bg-amber-400 h-1.5 rounded-full" style="width:26%"></div></div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-6">
+        <!-- Line Chart -->
+        <div class="xl:col-span-2 bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h3 class="font-bold text-gray-900">Revenue vs Expenses</h3>
+              <p class="text-xs text-gray-400 mt-0.5">6-Month Trend (Q2 2026)</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span>Revenue</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>Expenses</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>Profit</span>
+            </div>
+          </div>
+          <div class="h-64"><canvas id="lineChart"></canvas></div>
+        </div>
+
+        <!-- Profit Breakdown Doughnut -->
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="mb-4">
+            <h3 class="font-bold text-gray-900">Revenue by Segment</h3>
+            <p class="text-xs text-gray-400 mt-0.5">May 2026</p>
+          </div>
+          <div class="h-48"><canvas id="segChart"></canvas></div>
+          <div class="mt-4 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm bg-orange-500 inline-block"></span><span class="text-gray-600">Product Sales</span></span>
+              <span class="font-bold text-gray-800">48%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm bg-amber-400 inline-block"></span><span class="text-gray-600">Services</span></span>
+              <span class="font-bold text-gray-800">30%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm bg-yellow-300 inline-block"></span><span class="text-gray-600">Licensing</span></span>
+              <span class="font-bold text-gray-800">14%</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-sm bg-orange-200 inline-block"></span><span class="text-gray-600">Consulting</span></span>
+              <span class="font-bold text-gray-800">8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P&L Table + Cash Flow -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-5">
+        <!-- Monthly P&L Table -->
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-gray-50 flex items-center justify-between">
+            <h3 class="font-bold text-gray-900">Profit & Loss Statement</h3>
+            <span class="text-xs text-gray-400">Q2 2026</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase">
+                  <th class="px-5 py-3 text-left">Month</th>
+                  <th class="px-5 py-3 text-right">Revenue</th>
+                  <th class="px-5 py-3 text-right">Expenses</th>
+                  <th class="px-5 py-3 text-right">Net Profit</th>
+                  <th class="px-5 py-3 text-right">Margin</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-50">
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3 font-medium">April 2026</td>
+                  <td class="px-5 py-3 text-right text-gray-700">$114,700</td>
+                  <td class="px-5 py-3 text-right text-red-400">$85,200</td>
+                  <td class="px-5 py-3 text-right font-bold text-emerald-600">$29,500</td>
+                  <td class="px-5 py-3 text-right"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-semibold">25.7%</span></td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3 font-medium">May 2026</td>
+                  <td class="px-5 py-3 text-right text-gray-700">$124,500</td>
+                  <td class="px-5 py-3 text-right text-red-400">$86,300</td>
+                  <td class="px-5 py-3 text-right font-bold text-emerald-600">$38,200</td>
+                  <td class="px-5 py-3 text-right"><span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 rounded-lg text-xs font-semibold">30.7%</span></td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3 font-medium text-gray-400">June 2026</td>
+                  <td class="px-5 py-3 text-right text-gray-300">—</td>
+                  <td class="px-5 py-3 text-right text-gray-300">—</td>
+                  <td class="px-5 py-3 text-right text-gray-300">—</td>
+                  <td class="px-5 py-3 text-right text-gray-300 text-xs">In progress</td>
+                </tr>
+                <tr class="bg-orange-50 font-bold">
+                  <td class="px-5 py-3 text-orange-700">Q2 Total</td>
+                  <td class="px-5 py-3 text-right text-gray-900">$239,200</td>
+                  <td class="px-5 py-3 text-right text-red-500">$171,500</td>
+                  <td class="px-5 py-3 text-right text-emerald-600">$67,700</td>
+                  <td class="px-5 py-3 text-right"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-bold">28.3%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Cash Flow Summary -->
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+          <div class="px-5 py-4 border-b border-gray-50">
+            <h3 class="font-bold text-gray-900">Cash Flow Summary</h3>
+            <p class="text-xs text-gray-400 mt-0.5">May 2026</p>
+          </div>
+          <div class="p-5 space-y-4">
+            <!-- Operating Activities -->
+            <div>
+              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Operating Activities</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between items-center p-3 bg-green-50 rounded-xl">
+                  <span class="text-gray-700">Cash from Sales</span>
+                  <span class="font-bold text-green-600">+$124,500</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-xl">
+                  <span class="text-gray-700">Operating Expenses</span>
+                  <span class="font-bold text-red-500">-$86,300</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-orange-50 rounded-xl font-semibold">
+                  <span class="text-gray-800">Net Operating Cash</span>
+                  <span class="text-orange-600">+$38,200</span>
+                </div>
+              </div>
+            </div>
+            <!-- Investing Activities -->
+            <div>
+              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Investing Activities</p>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-xl">
+                  <span class="text-gray-700">Equipment Purchase</span>
+                  <span class="font-bold text-red-500">-$12,000</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-red-50 rounded-xl">
+                  <span class="text-gray-700">Software Licences</span>
+                  <span class="font-bold text-red-500">-$3,720</span>
+                </div>
+              </div>
+            </div>
+            <!-- Net Cash -->
+            <div class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl p-4 flex items-center justify-between">
+              <span class="text-white font-bold">Net Cash Position (May)</span>
+              <span class="text-white font-bold text-xl">+$22,480</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expense Breakdown Bar -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-5 mt-5">
+        <h3 class="font-bold text-gray-900 mb-5">Expense Breakdown by Department – May 2026</h3>
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <span class="w-32 text-sm text-gray-600 flex-shrink-0">HR & Payroll</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden"><div class="bg-orange-500 h-full rounded-full" style="width:35%"></div></div>
+            <span class="text-sm font-bold text-gray-900 w-20 text-right">$30,205 <span class="text-gray-400 font-normal">(35%)</span></span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-32 text-sm text-gray-600 flex-shrink-0">Operations</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden"><div class="bg-amber-400 h-full rounded-full" style="width:28%"></div></div>
+            <span class="text-sm font-bold text-gray-900 w-20 text-right">$24,164 <span class="text-gray-400 font-normal">(28%)</span></span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-32 text-sm text-gray-600 flex-shrink-0">Marketing</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden"><div class="bg-yellow-400 h-full rounded-full" style="width:20%"></div></div>
+            <span class="text-sm font-bold text-gray-900 w-20 text-right">$17,260 <span class="text-gray-400 font-normal">(20%)</span></span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="w-32 text-sm text-gray-600 flex-shrink-0">IT & Tech</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden"><div class="bg-orange-200 h-full rounded-full" style="width:17%"></div></div>
+            <span class="text-sm font-bold text-gray-900 w-20 text-right">$14,671 <span class="text-gray-400 font-normal">(17%)</span></span>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-50 flex justify-between items-center">
+          <span class="text-sm text-gray-500">Total Operating Expenses</span>
+          <span class="font-bold text-gray-900">$86,300</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // Line chart
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan','Feb','Mar','Apr','May','Jun'],
+        datasets: [
+          {
+            label: 'Revenue',
+            data: [85000, 92000, 78000, 114700, 124500, null],
+            borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.08)',
+            borderWidth: 2.5, fill: true, tension: 0.4, pointBackgroundColor: '#f97316', pointRadius: 4
+          },
+          {
+            label: 'Expenses',
+            data: [62000, 68000, 58000, 85200, 86300, null],
+            borderColor: '#f87171', backgroundColor: 'rgba(248,113,113,0.05)',
+            borderWidth: 2.5, fill: false, tension: 0.4, pointBackgroundColor: '#f87171', pointRadius: 4
+          },
+          {
+            label: 'Profit',
+            data: [23000, 24000, 20000, 29500, 38200, null],
+            borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.08)',
+            borderWidth: 2, fill: true, tension: 0.4, pointBackgroundColor: '#10b981', pointRadius: 4,
+            borderDash: [4,4]
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+          y: {
+            grid: { color: 'rgba(0,0,0,0.04)' }, beginAtZero: true,
+            ticks: { font: { size: 11 }, callback: v => '$'+(v/1000)+'K' }
+          }
+        }
+      }
+    });
+
+    // Segment doughnut
+    const segCtx = document.getElementById('segChart').getContext('2d');
+    new Chart(segCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Product Sales','Services','Licensing','Consulting'],
+        datasets: [{ data: [48,30,14,8], backgroundColor: ['#f97316','#fbbf24','#fde047','#fed7aa'], borderWidth: 0, hoverOffset: 6 }]
+      },
+      options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '68%' }
+    });
+
+    const periodData = {
+      q1: { rev:'$343,300', exp:'$259,200', profit:'$84,100', margin:'24.5%' },
+      q2: { rev:'$582,500', exp:'$430,800', profit:'$151,700', margin:'26.0%' },
+      ytd: { rev:'$925,800', exp:'$690,000', profit:'$235,800', margin:'25.5%' }
+    };
+
+    function setPeriod(p) {
+      document.querySelectorAll('.period-btn').forEach(b => {
+        b.className = 'period-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-gray-500 hover:bg-white';
+      });
+      document.getElementById('btn-'+p).className = 'period-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all bg-orange-500 text-white shadow-sm';
+      showToast(`Switched to ${p.toUpperCase()} view`, 'info');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <!-- Sidebar -->
+  <div id="sidebar-container" data-active="dashboard"></div>
+
+  <!-- Main Content -->
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+
+    <!-- Top Navbar -->
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div class="flex items-center gap-4">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-orange-50 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div>
+          <h2 class="font-bold text-gray-900 text-lg">Dashboard</h2>
+          <p class="text-xs text-gray-400">Monday, 5 May 2026</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <!-- Search -->
+        <div class="relative hidden md:block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+          <input type="text" placeholder="Search modules..." class="pl-9 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 focus:bg-white w-52 transition-all">
+        </div>
+        <!-- Notifications -->
+        <button class="relative p-2.5 bg-gray-50 hover:bg-orange-50 border border-gray-200 rounded-xl transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-500 rounded-full"></span>
+        </button>
+        <!-- User -->
+        <div class="flex items-center gap-2.5 pl-3 border-l border-gray-200">
+          <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+          <div class="hidden md:block">
+            <p class="text-sm font-semibold text-gray-800 leading-tight">Admin</p>
+            <p class="text-xs text-gray-400">Super Admin</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="flex-1 p-6 page-enter">
+
+      <!-- Welcome Banner -->
+      <div class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-6 mb-6 flex items-center justify-between overflow-hidden relative">
+        <div class="absolute right-0 top-0 w-64 h-full opacity-10">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full text-white fill-current"><path d="M44.5,-76.3C59.5,-69.9,74.5,-61.1,81.8,-47.7C89.2,-34.3,89,-16.2,85.3,-0.2C81.7,15.8,74.7,31.6,65.3,44.7C55.9,57.8,44.1,68.3,30.5,74.9C16.9,81.5,1.5,84.2,-14.7,82.8C-30.9,81.4,-47.9,76,-60.7,65.6C-73.5,55.2,-82.1,39.8,-86.1,23.1C-90.1,6.4,-89.5,-11.6,-82.7,-26.5C-75.9,-41.4,-63,-53.1,-49.1,-60.3C-35.2,-67.5,-20.3,-70.2,-4.4,-63.8C11.4,-57.4,29.5,-82.7,44.5,-76.3Z" transform="translate(100 100)"/></svg>
+        </div>
+        <div class="relative z-10">
+          <p class="text-orange-100 text-sm font-medium mb-1">Good morning,</p>
+          <h3 class="text-white text-2xl font-bold mb-1">Admin User 👋</h3>
+          <p class="text-orange-100 text-sm">Here's what's happening in your business today.</p>
+        </div>
+        <div class="hidden md:flex items-center gap-3 relative z-10">
+          <a href="hr/employees.html" class="px-4 py-2 bg-white bg-opacity-20 hover:bg-opacity-30 border border-white border-opacity-30 text-white text-sm font-medium rounded-xl transition-all">View Employees</a>
+          <a href="finance/reports.html" class="px-4 py-2 bg-white text-orange-600 text-sm font-semibold rounded-xl hover:shadow-lg transition-all">View Reports</a>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 mb-6">
+        <!-- Employees -->
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-11 h-11 bg-orange-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+12 new</span>
+          </div>
+          <p class="text-3xl font-bold text-gray-900 mb-1">248</p>
+          <p class="text-sm text-gray-500 font-medium">Total Employees</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-green-600 font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span>+5.1% this month</span>
+          </div>
+        </div>
+        <!-- Revenue -->
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-11 h-11 bg-amber-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+8.5%</span>
+          </div>
+          <p class="text-3xl font-bold text-gray-900 mb-1">$124.5K</p>
+          <p class="text-sm text-gray-500 font-medium">Monthly Revenue</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-green-600 font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span>vs $114.7K last month</span>
+          </div>
+        </div>
+        <!-- Inventory -->
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-11 h-11 bg-yellow-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-full">15 low</span>
+          </div>
+          <p class="text-3xl font-bold text-gray-900 mb-1">1,842</p>
+          <p class="text-sm text-gray-500 font-medium">Inventory Items</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-amber-600 font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            <span>15 items low stock</span>
+          </div>
+        </div>
+        <!-- Net Profit -->
+        <div class="kpi-card bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-11 h-11 bg-emerald-100 rounded-xl flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">+15.2%</span>
+          </div>
+          <p class="text-3xl font-bold text-gray-900 mb-1">$38.2K</p>
+          <p class="text-sm text-gray-500 font-medium">Net Profit (May)</p>
+          <div class="mt-3 flex items-center gap-1 text-xs text-green-600 font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            <span>Best month YTD</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-6">
+        <!-- Bar Chart -->
+        <div class="xl:col-span-2 bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h3 class="font-bold text-gray-900">Revenue vs Expenses</h3>
+              <p class="text-xs text-gray-400 mt-0.5">January – June 2026</p>
+            </div>
+            <div class="flex items-center gap-4 text-xs font-medium">
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-orange-500 inline-block"></span>Revenue</span>
+              <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-amber-300 inline-block"></span>Expenses</span>
+            </div>
+          </div>
+          <div class="chart-wrap h-64">
+            <canvas id="salesChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Doughnut Chart -->
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <div class="mb-4">
+            <h3 class="font-bold text-gray-900">Expense Breakdown</h3>
+            <p class="text-xs text-gray-400 mt-0.5">May 2026</p>
+          </div>
+          <div class="chart-wrap h-44 flex items-center justify-center">
+            <canvas id="expenseChart"></canvas>
+          </div>
+          <div class="mt-4 space-y-2.5">
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-orange-500 inline-block"></span><span class="text-gray-600">HR & Payroll</span></span>
+              <span class="font-semibold text-gray-800">35%</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span><span class="text-gray-600">Operations</span></span>
+              <span class="font-semibold text-gray-800">28%</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-yellow-300 inline-block"></span><span class="text-gray-600">Marketing</span></span>
+              <span class="font-semibold text-gray-800">20%</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-orange-200 inline-block"></span><span class="text-gray-600">IT & Tech</span></span>
+              <span class="font-semibold text-gray-800">17%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Row: Recent Orders + Activity -->
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <!-- Recent Orders -->
+        <div class="xl:col-span-2 bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-50">
+            <h3 class="font-bold text-gray-900">Recent Orders</h3>
+            <a href="sales/orders.html" class="text-sm text-orange-500 font-semibold hover:text-orange-600">View all →</a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full data-table text-sm">
+              <thead>
+                <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                  <th class="px-5 py-3 text-left">Order ID</th>
+                  <th class="px-5 py-3 text-left">Customer</th>
+                  <th class="px-5 py-3 text-left">Amount</th>
+                  <th class="px-5 py-3 text-left">Status</th>
+                  <th class="px-5 py-3 text-left">Date</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-50">
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3.5 font-mono text-xs text-gray-500">#ORD-0058</td>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">Acme Corp</td>
+                  <td class="px-5 py-3.5 font-semibold text-gray-900">$4,250</td>
+                  <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Delivered</span></td>
+                  <td class="px-5 py-3.5 text-gray-400 text-xs">May 5, 2026</td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3.5 font-mono text-xs text-gray-500">#ORD-0057</td>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">Globex Ltd</td>
+                  <td class="px-5 py-3.5 font-semibold text-gray-900">$2,800</td>
+                  <td class="px-5 py-3.5"><span class="badge-processing px-2.5 py-0.5 rounded-full text-xs font-semibold">Processing</span></td>
+                  <td class="px-5 py-3.5 text-gray-400 text-xs">May 4, 2026</td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3.5 font-mono text-xs text-gray-500">#ORD-0056</td>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">Initech Inc</td>
+                  <td class="px-5 py-3.5 font-semibold text-gray-900">$6,100</td>
+                  <td class="px-5 py-3.5"><span class="badge-pending px-2.5 py-0.5 rounded-full text-xs font-semibold">Pending</span></td>
+                  <td class="px-5 py-3.5 text-gray-400 text-xs">May 3, 2026</td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3.5 font-mono text-xs text-gray-500">#ORD-0055</td>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">Umbrella Co</td>
+                  <td class="px-5 py-3.5 font-semibold text-gray-900">$1,950</td>
+                  <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Delivered</span></td>
+                  <td class="px-5 py-3.5 text-gray-400 text-xs">May 2, 2026</td>
+                </tr>
+                <tr class="hover:bg-orange-50/30">
+                  <td class="px-5 py-3.5 font-mono text-xs text-gray-500">#ORD-0054</td>
+                  <td class="px-5 py-3.5 font-medium text-gray-800">Massive Dyn</td>
+                  <td class="px-5 py-3.5 font-semibold text-gray-900">$3,400</td>
+                  <td class="px-5 py-3.5"><span class="badge-cancelled px-2.5 py-0.5 rounded-full text-xs font-semibold">Cancelled</span></td>
+                  <td class="px-5 py-3.5 text-gray-400 text-xs">May 1, 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-50">
+            <h3 class="font-bold text-gray-900">Recent Activity</h3>
+            <span class="text-xs text-gray-400">Today</span>
+          </div>
+          <div class="p-4 space-y-4 overflow-y-auto max-h-72">
+            <div class="flex gap-3">
+              <div class="w-8 h-8 bg-orange-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">New employee added</p>
+                <p class="text-xs text-gray-400">Sarah Kim · HR Manager</p>
+                <p class="text-xs text-orange-400 mt-0.5">2 min ago</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 bg-amber-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">Order #ORD-0058 delivered</p>
+                <p class="text-xs text-gray-400">Acme Corp · $4,250</p>
+                <p class="text-xs text-orange-400 mt-0.5">18 min ago</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 bg-red-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">Low stock alert</p>
+                <p class="text-xs text-gray-400">USB-C Cables · 5 units left</p>
+                <p class="text-xs text-orange-400 mt-0.5">45 min ago</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 bg-emerald-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">Payroll processed</p>
+                <p class="text-xs text-gray-400">248 employees · $284K</p>
+                <p class="text-xs text-orange-400 mt-0.5">2 hrs ago</p>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex-shrink-0 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-gray-800 font-medium">Invoice INV-2026-058 generated</p>
+                <p class="text-xs text-gray-400">Acme Corp · Pending payment</p>
+                <p class="text-xs text-orange-400 mt-0.5">3 hrs ago</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick module links -->
+          <div class="px-4 pb-4 pt-2 border-t border-gray-50 mt-2">
+            <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Quick Access</p>
+            <div class="grid grid-cols-2 gap-2">
+              <a href="hr/employees.html" class="flex items-center gap-2 p-2 bg-orange-50 rounded-xl hover:bg-orange-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="text-xs font-semibold text-orange-700">Employees</span>
+              </a>
+              <a href="hr/payroll.html" class="flex items-center gap-2 p-2 bg-orange-50 rounded-xl hover:bg-orange-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                <span class="text-xs font-semibold text-orange-700">Payroll</span>
+              </a>
+              <a href="hr/attendance.html" class="flex items-center gap-2 p-2 bg-amber-50 rounded-xl hover:bg-amber-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span class="text-xs font-semibold text-amber-700">Attendance</span>
+              </a>
+              <a href="inventory/stock.html" class="flex items-center gap-2 p-2 bg-amber-50 rounded-xl hover:bg-amber-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                <span class="text-xs font-semibold text-amber-700">Stock</span>
+              </a>
+              <a href="sales/customers.html" class="flex items-center gap-2 p-2 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                <span class="text-xs font-semibold text-yellow-700">Customers</span>
+              </a>
+              <a href="sales/orders.html" class="flex items-center gap-2 p-2 bg-yellow-50 rounded-xl hover:bg-yellow-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+                <span class="text-xs font-semibold text-yellow-700">Orders</span>
+              </a>
+              <a href="sales/invoices.html" class="flex items-center gap-2 p-2 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span class="text-xs font-semibold text-emerald-700">Invoices</span>
+              </a>
+              <a href="finance/reports.html" class="flex items-center gap-2 p-2 bg-emerald-50 rounded-xl hover:bg-emerald-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                <span class="text-xs font-semibold text-emerald-700">Finance</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/sidebar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    // Bar chart
+    const salesCtx = document.getElementById('salesChart').getContext('2d');
+    new Chart(salesCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [
+          {
+            label: 'Revenue',
+            data: [85000, 92000, 78000, 105000, 124500, null],
+            backgroundColor: 'rgba(249,115,22,0.85)',
+            borderRadius: 8, borderSkipped: false
+          },
+          {
+            label: 'Expenses',
+            data: [62000, 68000, 58000, 75000, 86300, null],
+            backgroundColor: 'rgba(251,191,36,0.75)',
+            borderRadius: 8, borderSkipped: false
+          }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+          y: {
+            grid: { color: 'rgba(0,0,0,0.04)' },
+            beginAtZero: true,
+            ticks: {
+              font: { size: 11 },
+              callback: v => '$' + (v/1000) + 'K'
+            }
+          }
+        }
+      }
+    });
+
+    // Doughnut chart
+    const expCtx = document.getElementById('expenseChart').getContext('2d');
+    new Chart(expCtx, {
+      type: 'doughnut',
+      data: {
+        labels: ['HR & Payroll', 'Operations', 'Marketing', 'IT & Tech'],
+        datasets: [{
+          data: [35, 28, 20, 17],
+          backgroundColor: ['#f97316', '#fbbf24', '#fde047', '#fed7aa'],
+          borderWidth: 0, hoverOffset: 6
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        cutout: '68%'
+      }
+    });
+  </script>
+</body>
+</html>

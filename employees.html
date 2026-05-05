@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employees – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="employees"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <!-- Navbar -->
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="lg:hidden p-2 rounded-xl hover:bg-orange-50 text-gray-500">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div>
+          <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+            <a href="../dashboard.html" class="hover:text-orange-500">Dashboard</a>
+            <span>/</span><span class="text-gray-600 font-medium">HR</span>
+            <span>/</span><span class="text-orange-500 font-medium">Employees</span>
+          </div>
+          <h2 class="font-bold text-gray-900 text-lg leading-tight">Employee Management</h2>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openModal('addEmpModal')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Employee
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+      <!-- Stats Row -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">248</p><p class="text-xs text-gray-500">Total Employees</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">231</p><p class="text-xs text-gray-500">Active</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">12</p><p class="text-xs text-gray-500">On Leave</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">8</p><p class="text-xs text-gray-500">Departments</p></div>
+        </div>
+      </div>
+
+      <!-- Table Card -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between px-5 py-4 gap-3 border-b border-gray-50">
+          <div>
+            <h3 class="font-bold text-gray-900">All Employees</h3>
+            <p class="text-xs text-gray-400 mt-0.5">Showing 248 records</p>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+              <input id="empSearch" type="text" placeholder="Search employees..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 w-52">
+            </div>
+            <select class="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 text-gray-600">
+              <option>All Departments</option>
+              <option>Engineering</option>
+              <option>Sales</option>
+              <option>Finance</option>
+              <option>HR</option>
+              <option>Operations</option>
+            </select>
+            <button class="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full data-table text-sm" id="empTable">
+            <thead>
+              <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                <th class="px-5 py-3 text-left">Employee</th>
+                <th class="px-5 py-3 text-left">ID</th>
+                <th class="px-5 py-3 text-left">Department</th>
+                <th class="px-5 py-3 text-left">Role</th>
+                <th class="px-5 py-3 text-left">Salary</th>
+                <th class="px-5 py-3 text-left">Join Date</th>
+                <th class="px-5 py-3 text-left">Status</th>
+                <th class="px-5 py-3 text-left">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50" id="empTableBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-between px-5 py-3 border-t border-gray-50 text-xs text-gray-400">
+          <span>Showing 1–12 of 248 employees</span>
+          <div class="flex items-center gap-1">
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50 text-gray-500">← Prev</button>
+            <button class="px-3 py-1.5 rounded-lg bg-orange-500 text-white font-semibold">1</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50 text-gray-500">2</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50 text-gray-500">3</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50 text-gray-500">Next →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Employee Modal -->
+  <div id="addEmpModal" class="modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between p-5 border-b border-gray-100">
+        <div>
+          <h3 class="font-bold text-gray-900 text-lg">Add New Employee</h3>
+          <p class="text-xs text-gray-400 mt-0.5">Fill in the details below</p>
+        </div>
+        <button onclick="closeModal('addEmpModal')" class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-gray-100 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <form onsubmit="addEmployee(event)" class="p-5 space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">First Name *</label>
+            <input type="text" id="empFirst" required placeholder="John" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Last Name *</label>
+            <input type="text" id="empLast" required placeholder="Smith" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Email Address *</label>
+          <input type="email" id="empEmail" required placeholder="john.smith@nexuserp.com" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Department *</label>
+            <select id="empDept" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+              <option value="">Select...</option>
+              <option>Engineering</option>
+              <option>Sales</option>
+              <option>Finance</option>
+              <option>HR</option>
+              <option>Operations</option>
+              <option>Marketing</option>
+              <option>IT Support</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Role / Position *</label>
+            <input type="text" id="empRole" required placeholder="Senior Developer" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Monthly Salary ($)</label>
+            <input type="number" id="empSalary" placeholder="5000" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-1.5">Join Date</label>
+            <input type="date" id="empJoin" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-gray-600 mb-1.5">Phone Number</label>
+          <input type="tel" placeholder="+1 555 000 0000" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+        </div>
+        <div class="flex gap-3 pt-2">
+          <button type="button" onclick="closeModal('addEmpModal')" class="flex-1 py-2.5 border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50 transition-colors">Cancel</button>
+          <button type="submit" class="flex-1 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all shadow-sm">Add Employee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const avatarColors = ['from-orange-400 to-amber-400','from-blue-400 to-indigo-400','from-emerald-400 to-teal-400','from-purple-400 to-pink-400','from-red-400 to-orange-400','from-cyan-400 to-blue-400'];
+
+    const employees = [
+      { id:'EMP-001', name:'Alice Johnson', dept:'Engineering', role:'Lead Developer', salary:8500, join:'2022-03-15', status:'active' },
+      { id:'EMP-002', name:'Bob Martinez', dept:'Sales', role:'Sales Executive', salary:5200, join:'2021-07-22', status:'active' },
+      { id:'EMP-003', name:'Carol Chen', dept:'Finance', role:'Finance Officer', salary:6800, join:'2020-01-10', status:'active' },
+      { id:'EMP-004', name:'David Kim', dept:'HR', role:'HR Manager', salary:7200, join:'2019-11-05', status:'active' },
+      { id:'EMP-005', name:'Emma Wilson', dept:'Marketing', role:'Marketing Lead', salary:6500, join:'2023-02-28', status:'active' },
+      { id:'EMP-006', name:'Frank Thompson', dept:'Engineering', role:'Backend Developer', salary:7800, join:'2022-08-14', status:'on-leave' },
+      { id:'EMP-007', name:'Grace Lee', dept:'Operations', role:'Operations Manager', salary:7500, join:'2020-05-20', status:'active' },
+      { id:'EMP-008', name:'Henry Patel', dept:'IT Support', role:'IT Specialist', salary:5500, join:'2023-09-01', status:'active' },
+      { id:'EMP-009', name:'Iris Brown', dept:'Sales', role:'Account Manager', salary:5800, join:'2021-04-12', status:'active' },
+      { id:'EMP-010', name:'James Davis', dept:'Finance', role:'Senior Accountant', salary:7100, join:'2020-09-30', status:'active' },
+      { id:'EMP-011', name:'Kelly White', dept:'Engineering', role:'Frontend Developer', salary:7300, join:'2022-12-01', status:'active' },
+      { id:'EMP-012', name:'Liam Anderson', dept:'HR', role:'Recruiter', salary:5000, join:'2023-06-15', status:'inactive' }
+    ];
+
+    function renderTable() {
+      const tbody = document.getElementById('empTableBody');
+      tbody.innerHTML = employees.map((e, i) => {
+        const initials = e.name.split(' ').map(n => n[0]).join('');
+        const color = avatarColors[i % avatarColors.length];
+        const statusClass = e.status === 'active' ? 'badge-active' : e.status === 'on-leave' ? 'badge-pending' : 'badge-inactive';
+        const statusLabel = e.status === 'active' ? 'Active' : e.status === 'on-leave' ? 'On Leave' : 'Inactive';
+        return `<tr class="hover:bg-orange-50/30">
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 bg-gradient-to-br ${color} rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">${initials}</div>
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">${e.name}</p>
+                <p class="text-xs text-gray-400">${e.id.replace('EMP-', 'emp-').replace(/(\d+)/, m => m.toLowerCase())}@nexuserp.com</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-5 py-3.5 font-mono text-xs text-gray-500">${e.id}</td>
+          <td class="px-5 py-3.5"><span class="px-2.5 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs font-semibold">${e.dept}</span></td>
+          <td class="px-5 py-3.5 text-gray-600 text-sm">${e.role}</td>
+          <td class="px-5 py-3.5 font-semibold text-gray-900">$${e.salary.toLocaleString()}</td>
+          <td class="px-5 py-3.5 text-gray-400 text-xs">${new Date(e.join).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</td>
+          <td class="px-5 py-3.5"><span class="${statusClass} px-2.5 py-0.5 rounded-full text-xs font-semibold">${statusLabel}</span></td>
+          <td class="px-5 py-3.5">
+            <div class="flex items-center gap-1">
+              <button onclick="showToast('Employee profile opened','info')" class="p-1.5 rounded-lg hover:bg-orange-50 text-gray-400 hover:text-orange-500 transition-colors" title="View">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </button>
+              <button onclick="showToast('Edit mode enabled','info')" class="p-1.5 rounded-lg hover:bg-amber-50 text-gray-400 hover:text-amber-500 transition-colors" title="Edit">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </button>
+              <button onclick="showToast('Employee record deleted','error')" class="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors" title="Delete">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function addEmployee(e) {
+      e.preventDefault();
+      const first = document.getElementById('empFirst').value;
+      const last = document.getElementById('empLast').value;
+      const dept = document.getElementById('empDept').value;
+      const role = document.getElementById('empRole').value;
+      const salary = parseInt(document.getElementById('empSalary').value) || 0;
+      const join = document.getElementById('empJoin').value || '2026-05-05';
+      employees.unshift({ id: `EMP-${String(employees.length + 1).padStart(3,'0')}`, name: `${first} ${last}`, dept, role, salary, join, status: 'active' });
+      renderTable();
+      closeModal('addEmpModal');
+      showToast(`${first} ${last} added successfully!`, 'success');
+      e.target.reset();
+    }
+
+    renderTable();
+    initTableSearch('empSearch', 'empTable');
+  </script>
+</body>
+</html>

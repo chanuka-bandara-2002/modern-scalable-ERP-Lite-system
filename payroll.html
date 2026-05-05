@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payroll – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="payroll"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="../dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-gray-600 font-medium">HR</span>
+          <span>/</span><span class="text-orange-500 font-medium">Payroll</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg leading-tight">Payroll Management</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="showToast('Payroll run initiated for May 2026','success')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 transition-all shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Run Payroll
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+      <!-- Period selector -->
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex items-center gap-3 bg-white border border-orange-100 rounded-2xl p-1.5 shadow-sm">
+          <button class="px-4 py-2 text-gray-400 text-sm font-medium hover:text-gray-600">← Apr</button>
+          <div class="px-5 py-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl text-white text-sm font-bold">May 2026</div>
+          <button class="px-4 py-2 text-gray-400 text-sm font-medium hover:text-gray-600">Jun →</button>
+        </div>
+        <div class="flex items-center gap-2 text-sm">
+          <span class="px-3 py-1.5 bg-green-100 text-green-700 font-semibold rounded-xl text-xs">✓ Approved</span>
+          <span class="text-gray-400 text-xs">Last run: May 1, 2026 at 09:00 AM</span>
+        </div>
+      </div>
+
+      <!-- Payroll Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Gross Payroll</p>
+          <p class="text-3xl font-bold text-gray-900 mb-1">$284,200</p>
+          <div class="flex items-center gap-1 text-xs text-green-600 font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            +$12,400 vs Apr
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Tax Deductions</p>
+          <p class="text-3xl font-bold text-gray-900 mb-1">$42,630</p>
+          <p class="text-xs text-gray-400">15% average rate</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Net Payroll</p>
+          <p class="text-3xl font-bold text-orange-500 mb-1">$241,570</p>
+          <p class="text-xs text-gray-400">After all deductions</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 border border-orange-100 shadow-sm">
+          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Employees Paid</p>
+          <p class="text-3xl font-bold text-gray-900 mb-1">248</p>
+          <p class="text-xs text-green-600 font-medium">100% processed</p>
+        </div>
+      </div>
+
+      <!-- Payroll Table -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between px-5 py-4 gap-3 border-b border-gray-50">
+          <div>
+            <h3 class="font-bold text-gray-900">Payroll Details – May 2026</h3>
+            <p class="text-xs text-gray-400 mt-0.5">Click on an employee to view/download salary slip</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+              <input type="text" id="paySearch" placeholder="Search..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 w-44">
+            </div>
+            <button onclick="showToast('Payroll report exported','success')" class="flex items-center gap-1.5 px-3 py-2 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Export
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full data-table text-sm" id="payTable">
+            <thead>
+              <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                <th class="px-5 py-3 text-left">Employee</th>
+                <th class="px-5 py-3 text-left">Department</th>
+                <th class="px-5 py-3 text-right">Basic Salary</th>
+                <th class="px-5 py-3 text-right">Allowances</th>
+                <th class="px-5 py-3 text-right">Deductions</th>
+                <th class="px-5 py-3 text-right">Net Pay</th>
+                <th class="px-5 py-3 text-left">Status</th>
+                <th class="px-5 py-3 text-left">Action</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-5 py-3.5"><div class="flex items-center gap-2.5"><div class="w-8 h-8 bg-gradient-to-br from-orange-400 to-amber-400 rounded-full flex items-center justify-center text-white text-xs font-bold">AJ</div><span class="font-medium text-gray-800">Alice Johnson</span></div></td>
+                <td class="px-5 py-3.5 text-gray-500 text-sm">Engineering</td>
+                <td class="px-5 py-3.5 text-right font-medium text-gray-800">$8,500</td>
+                <td class="px-5 py-3.5 text-right text-green-600 font-medium">+$850</td>
+                <td class="px-5 py-3.5 text-right text-red-500 font-medium">-$1,403</td>
+                <td class="px-5 py-3.5 text-right font-bold text-gray-900">$7,947</td>
+                <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Paid</span></td>
+                <td class="px-5 py-3.5"><button onclick="openModal('slipModal')" class="text-xs text-orange-500 font-semibold hover:underline">View Slip</button></td>
+              </tr>
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-5 py-3.5"><div class="flex items-center gap-2.5"><div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-full flex items-center justify-center text-white text-xs font-bold">BM</div><span class="font-medium text-gray-800">Bob Martinez</span></div></td>
+                <td class="px-5 py-3.5 text-gray-500 text-sm">Sales</td>
+                <td class="px-5 py-3.5 text-right font-medium text-gray-800">$5,200</td>
+                <td class="px-5 py-3.5 text-right text-green-600 font-medium">+$1,200</td>
+                <td class="px-5 py-3.5 text-right text-red-500 font-medium">-$780</td>
+                <td class="px-5 py-3.5 text-right font-bold text-gray-900">$5,620</td>
+                <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Paid</span></td>
+                <td class="px-5 py-3.5"><button onclick="openModal('slipModal')" class="text-xs text-orange-500 font-semibold hover:underline">View Slip</button></td>
+              </tr>
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-5 py-3.5"><div class="flex items-center gap-2.5"><div class="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full flex items-center justify-center text-white text-xs font-bold">CC</div><span class="font-medium text-gray-800">Carol Chen</span></div></td>
+                <td class="px-5 py-3.5 text-gray-500 text-sm">Finance</td>
+                <td class="px-5 py-3.5 text-right font-medium text-gray-800">$6,800</td>
+                <td class="px-5 py-3.5 text-right text-green-600 font-medium">+$680</td>
+                <td class="px-5 py-3.5 text-right text-red-500 font-medium">-$1,122</td>
+                <td class="px-5 py-3.5 text-right font-bold text-gray-900">$6,358</td>
+                <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Paid</span></td>
+                <td class="px-5 py-3.5"><button onclick="openModal('slipModal')" class="text-xs text-orange-500 font-semibold hover:underline">View Slip</button></td>
+              </tr>
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-5 py-3.5"><div class="flex items-center gap-2.5"><div class="w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-xs font-bold">DK</div><span class="font-medium text-gray-800">David Kim</span></div></td>
+                <td class="px-5 py-3.5 text-gray-500 text-sm">HR</td>
+                <td class="px-5 py-3.5 text-right font-medium text-gray-800">$7,200</td>
+                <td class="px-5 py-3.5 text-right text-green-600 font-medium">+$720</td>
+                <td class="px-5 py-3.5 text-right text-red-500 font-medium">-$1,188</td>
+                <td class="px-5 py-3.5 text-right font-bold text-gray-900">$6,732</td>
+                <td class="px-5 py-3.5"><span class="badge-delivered px-2.5 py-0.5 rounded-full text-xs font-semibold">Paid</span></td>
+                <td class="px-5 py-3.5"><button onclick="openModal('slipModal')" class="text-xs text-orange-500 font-semibold hover:underline">View Slip</button></td>
+              </tr>
+              <tr class="hover:bg-orange-50/30">
+                <td class="px-5 py-3.5"><div class="flex items-center gap-2.5"><div class="w-8 h-8 bg-gradient-to-br from-red-400 to-orange-400 rounded-full flex items-center justify-center text-white text-xs font-bold">EW</div><span class="font-medium text-gray-800">Emma Wilson</span></div></td>
+                <td class="px-5 py-3.5 text-gray-500 text-sm">Marketing</td>
+                <td class="px-5 py-3.5 text-right font-medium text-gray-800">$6,500</td>
+                <td class="px-5 py-3.5 text-right text-green-600 font-medium">+$650</td>
+                <td class="px-5 py-3.5 text-right text-red-500 font-medium">-$1,073</td>
+                <td class="px-5 py-3.5 text-right font-bold text-gray-900">$6,077</td>
+                <td class="px-5 py-3.5"><span class="badge-pending px-2.5 py-0.5 rounded-full text-xs font-semibold">Pending</span></td>
+                <td class="px-5 py-3.5"><button onclick="openModal('slipModal')" class="text-xs text-orange-500 font-semibold hover:underline">View Slip</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Salary Slip Modal -->
+  <div id="slipModal" class="modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-40">
+    <div class="modal-box bg-white rounded-2xl shadow-2xl w-full max-w-lg">
+      <div class="flex items-center justify-between p-5 border-b border-gray-100">
+        <h3 class="font-bold text-gray-900">Salary Slip – May 2026</h3>
+        <button onclick="closeModal('slipModal')" class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-gray-100 text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="p-5">
+        <!-- Slip Header -->
+        <div class="bg-gradient-to-r from-orange-500 to-amber-500 rounded-xl p-4 text-white mb-5">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="font-bold text-lg">Nexus ERP</h4>
+              <p class="text-orange-100 text-xs">Enterprise Suite · Payroll Division</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-lg">Alice Johnson</p>
+              <p class="text-orange-100 text-xs">EMP-001 · Engineering</p>
+            </div>
+          </div>
+        </div>
+        <!-- Earnings & Deductions -->
+        <div class="grid grid-cols-2 gap-4 mb-5">
+          <div>
+            <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Earnings</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-gray-600">Basic Salary</span><span class="font-medium">$8,500.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">HRA Allowance</span><span class="font-medium">$500.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">Transport</span><span class="font-medium">$200.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">Performance Bonus</span><span class="font-medium text-green-600">$150.00</span></div>
+              <div class="flex justify-between border-t pt-2 font-bold"><span>Total Earnings</span><span class="text-green-600">$9,350.00</span></div>
+            </div>
+          </div>
+          <div>
+            <p class="text-xs font-semibold text-gray-500 uppercase mb-2">Deductions</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between"><span class="text-gray-600">Income Tax</span><span class="font-medium text-red-500">-$1,100.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">Provident Fund</span><span class="font-medium text-red-500">-$200.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">Health Insurance</span><span class="font-medium text-red-500">-$103.00</span></div>
+              <div class="flex justify-between"><span class="text-gray-600">Other</span><span class="font-medium text-red-500">-$0.00</span></div>
+              <div class="flex justify-between border-t pt-2 font-bold"><span>Total Deductions</span><span class="text-red-500">-$1,403.00</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-4 flex items-center justify-between mb-5">
+          <span class="font-bold text-gray-900">Net Pay (May 2026)</span>
+          <span class="text-2xl font-bold text-orange-600">$7,947.00</span>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="closeModal('slipModal')" class="flex-1 py-2.5 border border-gray-200 text-gray-600 text-sm font-semibold rounded-xl hover:bg-gray-50">Close</button>
+          <button onclick="showToast('Salary slip downloaded','success');closeModal('slipModal')" class="flex-1 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Download PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../assets/js/sidebar.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>initTableSearch('paySearch','payTable');</script>
+</body>
+</html>

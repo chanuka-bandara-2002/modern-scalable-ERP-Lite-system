@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Logs – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="audit"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-orange-500 font-medium">Audit Logs</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg">Audit Trail</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="showToast('Audit logs exported','success')" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Export Logs
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+
+      <!-- Stats -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">2,841</p><p class="text-xs text-gray-500">Total Events Today</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">24</p><p class="text-xs text-gray-500">Active Users</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">3</p><p class="text-xs text-gray-500">Warnings</p></div>
+        </div>
+        <div class="bg-white rounded-2xl p-4 border border-orange-100 shadow-sm flex items-center gap-3">
+          <div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+          </div>
+          <div><p class="text-2xl font-bold text-gray-900">0</p><p class="text-xs text-gray-500">Critical Errors</p></div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+        <div class="flex flex-col md:flex-row md:items-center justify-between px-5 py-4 gap-3 border-b border-gray-50">
+          <h3 class="font-bold text-gray-900">System Audit Log</h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="relative">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/></svg>
+              <input id="logSearch" type="text" placeholder="Search logs..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 w-48">
+            </div>
+            <select id="moduleFilter" onchange="filterLogs()" class="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 text-gray-600">
+              <option value="all">All Modules</option>
+              <option value="HR">HR</option>
+              <option value="Inventory">Inventory</option>
+              <option value="Sales">Sales</option>
+              <option value="Finance">Finance</option>
+              <option value="System">System</option>
+            </select>
+            <select id="actionFilter" onchange="filterLogs()" class="px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 text-gray-600">
+              <option value="all">All Actions</option>
+              <option value="CREATE">Create</option>
+              <option value="UPDATE">Update</option>
+              <option value="DELETE">Delete</option>
+              <option value="LOGIN">Login</option>
+              <option value="EXPORT">Export</option>
+            </select>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full data-table text-sm" id="logTable">
+            <thead>
+              <tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+                <th class="px-5 py-3 text-left">Timestamp</th>
+                <th class="px-5 py-3 text-left">User</th>
+                <th class="px-5 py-3 text-left">Action</th>
+                <th class="px-5 py-3 text-left">Module</th>
+                <th class="px-5 py-3 text-left">Description</th>
+                <th class="px-5 py-3 text-left">IP Address</th>
+                <th class="px-5 py-3 text-left">Severity</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50" id="logBody"></tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-between px-5 py-3 border-t border-gray-50 text-xs text-gray-400">
+          <span id="logCount">Showing all 20 events</span>
+          <div class="flex items-center gap-1">
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">← Prev</button>
+            <button class="px-3 py-1.5 rounded-lg bg-orange-500 text-white font-semibold">1</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">2</button>
+            <button class="px-3 py-1.5 rounded-lg hover:bg-orange-50">Next →</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/sidebar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    const logs = [
+      { time:'2026-05-05 10:32:14', user:'admin@nexuserp.com', action:'UPDATE', module:'HR', desc:'Updated salary for Alice Johnson (EMP-001)', ip:'192.168.1.10', sev:'info' },
+      { time:'2026-05-05 10:28:05', user:'hr.manager@nexuserp.com', action:'CREATE', module:'HR', desc:'Added new employee: Sarah Kim (EMP-249)', ip:'192.168.1.22', sev:'info' },
+      { time:'2026-05-05 10:15:42', user:'admin@nexuserp.com', action:'LOGIN', module:'System', desc:'Successful login from Chrome/Windows', ip:'192.168.1.10', sev:'info' },
+      { time:'2026-05-05 10:02:18', user:'sales@nexuserp.com', action:'CREATE', module:'Sales', desc:'New order #ORD-0059 created for Wayne Corp', ip:'192.168.1.35', sev:'info' },
+      { time:'2026-05-05 09:58:33', user:'finance@nexuserp.com', action:'EXPORT', module:'Finance', desc:'Finance report exported for Q2 2026', ip:'192.168.1.18', sev:'info' },
+      { time:'2026-05-05 09:45:11', user:'admin@nexuserp.com', action:'DELETE', module:'Inventory', desc:'Deleted product SKU-EL-015 (discontinued)', ip:'192.168.1.10', sev:'warning' },
+      { time:'2026-05-05 09:30:00', user:'hr.manager@nexuserp.com', action:'UPDATE', module:'HR', desc:'Processed payroll for May 2026 — 248 employees', ip:'192.168.1.22', sev:'info' },
+      { time:'2026-05-05 09:22:47', user:'sales@nexuserp.com', action:'UPDATE', module:'Sales', desc:'Invoice INV-2026-058 marked as Paid', ip:'192.168.1.35', sev:'info' },
+      { time:'2026-05-05 09:10:05', user:'unknown@external.com', action:'LOGIN', module:'System', desc:'Failed login attempt — invalid credentials', ip:'203.0.113.45', sev:'warning' },
+      { time:'2026-05-05 09:05:22', user:'admin@nexuserp.com', action:'UPDATE', module:'Inventory', desc:'Restocked USB-C Hub (SKU-AC-002): +50 units', ip:'192.168.1.10', sev:'info' },
+      { time:'2026-05-04 17:45:00', user:'finance@nexuserp.com', action:'CREATE', module:'Finance', desc:'Monthly report generated for April 2026', ip:'192.168.1.18', sev:'info' },
+      { time:'2026-05-04 16:30:18', user:'admin@nexuserp.com', action:'DELETE', module:'HR', desc:'Removed inactive employee record EMP-089', ip:'192.168.1.10', sev:'warning' },
+      { time:'2026-05-04 14:12:09', user:'sales@nexuserp.com', action:'CREATE', module:'Sales', desc:'New customer: Wayne Corp added to CRM', ip:'192.168.1.35', sev:'info' },
+      { time:'2026-05-04 11:05:54', user:'hr.manager@nexuserp.com', action:'UPDATE', module:'HR', desc:'Attendance records updated for 248 employees', ip:'192.168.1.22', sev:'info' },
+      { time:'2026-05-04 10:00:00', user:'admin@nexuserp.com', action:'LOGIN', module:'System', desc:'System configuration review performed', ip:'192.168.1.10', sev:'info' },
+    ];
+
+    const sevCfg = {
+      info:    { cls:'badge-processing', label:'Info'    },
+      warning: { cls:'badge-pending',    label:'Warning' },
+      error:   { cls:'badge-cancelled',  label:'Error'   }
+    };
+    const actionColors = {
+      CREATE: 'bg-green-50 text-green-700',
+      UPDATE: 'bg-blue-50 text-blue-700',
+      DELETE: 'bg-red-50 text-red-600',
+      LOGIN:  'bg-purple-50 text-purple-700',
+      EXPORT: 'bg-amber-50 text-amber-700'
+    };
+
+    function renderLogs(list) {
+      document.getElementById('logCount').textContent = `Showing ${list.length} event${list.length!==1?'s':''}`;
+      document.getElementById('logBody').innerHTML = list.map(l => `
+        <tr class="hover:bg-orange-50/30">
+          <td class="px-5 py-3 font-mono text-xs text-gray-500 whitespace-nowrap">${l.time}</td>
+          <td class="px-5 py-3">
+            <div class="flex items-center gap-2">
+              <div class="w-6 h-6 bg-gradient-to-br from-orange-400 to-amber-400 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">${l.user[0].toUpperCase()}</div>
+              <span class="text-xs text-gray-700">${l.user}</span>
+            </div>
+          </td>
+          <td class="px-5 py-3"><span class="${actionColors[l.action]||'bg-gray-100 text-gray-600'} px-2.5 py-0.5 rounded-lg text-xs font-bold">${l.action}</span></td>
+          <td class="px-5 py-3"><span class="px-2.5 py-0.5 bg-orange-50 text-orange-700 rounded-lg text-xs font-semibold">${l.module}</span></td>
+          <td class="px-5 py-3 text-gray-600 text-sm max-w-xs truncate">${l.desc}</td>
+          <td class="px-5 py-3 font-mono text-xs text-gray-400">${l.ip}</td>
+          <td class="px-5 py-3"><span class="${sevCfg[l.sev].cls} px-2 py-0.5 rounded-full text-xs font-semibold">${sevCfg[l.sev].label}</span></td>
+        </tr>`).join('');
+    }
+
+    function filterLogs() {
+      const mod = document.getElementById('moduleFilter').value;
+      const act = document.getElementById('actionFilter').value;
+      let list = logs;
+      if (mod !== 'all') list = list.filter(l => l.module === mod);
+      if (act !== 'all') list = list.filter(l => l.action === act);
+      renderLogs(list);
+    }
+
+    renderLogs(logs);
+    initTableSearch('logSearch','logTable');
+  </script>
+</body>
+</html>

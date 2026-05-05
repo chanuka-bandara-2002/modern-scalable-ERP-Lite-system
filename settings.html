@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings – Nexus ERP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-orange-50 font-['Inter'] text-gray-800">
+
+  <div id="sidebar-container" data-active="settings"></div>
+
+  <div class="ml-64 min-h-screen flex flex-col main-content">
+    <header class="sticky top-0 z-30 bg-white border-b border-orange-100 px-6 py-4 flex items-center justify-between shadow-sm">
+      <div>
+        <div class="flex items-center gap-2 text-sm text-gray-400 mb-0.5">
+          <a href="dashboard.html" class="hover:text-orange-500">Dashboard</a>
+          <span>/</span><span class="text-orange-500 font-medium">Settings</span>
+        </div>
+        <h2 class="font-bold text-gray-900 text-lg">System Settings</h2>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="saveSettings()" class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-sm font-semibold rounded-xl hover:from-orange-600 hover:to-amber-600 shadow-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          Save Changes
+        </button>
+        <div class="w-9 h-9 bg-gradient-to-br from-orange-500 to-amber-400 rounded-full flex items-center justify-center text-white text-sm font-bold">A</div>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 page-enter">
+      <div class="grid grid-cols-1 xl:grid-cols-4 gap-6">
+
+        <!-- Settings nav tabs -->
+        <div class="xl:col-span-1">
+          <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+            <div class="p-4 border-b border-gray-50">
+              <p class="text-xs font-bold text-gray-500 uppercase tracking-wider">Configuration</p>
+            </div>
+            <nav class="p-2 space-y-1" id="settingsNav">
+              <button onclick="showTab('general')" class="settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all bg-orange-500 text-white" data-tab="general">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                General
+              </button>
+              <button onclick="showTab('rbac')" class="settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all text-gray-600 hover:bg-orange-50 hover:text-orange-600" data-tab="rbac">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                RBAC & Roles
+              </button>
+              <button onclick="showTab('notifications')" class="settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all text-gray-600 hover:bg-orange-50 hover:text-orange-600" data-tab="notifications">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                Notifications
+              </button>
+              <button onclick="showTab('security')" class="settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all text-gray-600 hover:bg-orange-50 hover:text-orange-600" data-tab="security">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                Security
+              </button>
+              <button onclick="showTab('company')" class="settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all text-gray-600 hover:bg-orange-50 hover:text-orange-600" data-tab="company">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                Company Profile
+              </button>
+            </nav>
+          </div>
+        </div>
+
+        <!-- Settings panels -->
+        <div class="xl:col-span-3 space-y-5">
+
+          <!-- General Settings -->
+          <div id="tab-general" class="tab-panel space-y-5">
+            <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+              <h3 class="font-bold text-gray-900 mb-5">General Settings</h3>
+              <div class="space-y-5">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">System Name</label>
+                    <input type="text" value="Nexus ERP" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">System Timezone</label>
+                    <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+                      <option>UTC+0 (London)</option>
+                      <option>UTC+5:30 (Colombo)</option>
+                      <option>UTC-5 (New York)</option>
+                      <option>UTC+8 (Singapore)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Date Format</label>
+                    <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+                      <option>MMM DD, YYYY</option>
+                      <option>DD/MM/YYYY</option>
+                      <option>YYYY-MM-DD</option>
+                      <option>MM/DD/YYYY</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Currency</label>
+                    <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+                      <option>USD ($)</option>
+                      <option>EUR (€)</option>
+                      <option>GBP (£)</option>
+                      <option>LKR (Rs)</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">System Description</label>
+                  <textarea rows="2" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none">Enterprise Resource Planning system for SMEs</textarea>
+                </div>
+                <div class="flex items-center justify-between py-3 border-t border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Maintenance Mode</p><p class="text-xs text-gray-400">Disable access for non-admin users</p></div>
+                  <button onclick="this.classList.toggle('bg-orange-500');this.classList.toggle('bg-gray-200')" class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors cursor-pointer">
+                    <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
+                  </button>
+                </div>
+                <div class="flex items-center justify-between py-3 border-t border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Debug Logging</p><p class="text-xs text-gray-400">Enable verbose system logging</p></div>
+                  <button onclick="this.classList.toggle('bg-orange-500');this.classList.toggle('bg-gray-200')" class="relative w-12 h-6 bg-gray-200 rounded-full transition-colors cursor-pointer">
+                    <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RBAC Settings -->
+          <div id="tab-rbac" class="tab-panel hidden">
+            <div class="bg-white rounded-2xl border border-orange-100 shadow-sm overflow-hidden">
+              <div class="flex items-center justify-between px-6 py-4 border-b border-gray-50">
+                <h3 class="font-bold text-gray-900">Role-Based Access Control</h3>
+                <button onclick="showToast('New role created','success')" class="flex items-center gap-1.5 px-3 py-2 bg-orange-50 text-orange-600 text-xs font-semibold rounded-xl hover:bg-orange-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                  Add Role
+                </button>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead><tr class="bg-amber-50 text-gray-500 text-xs font-semibold uppercase"><th class="px-5 py-3 text-left">Role</th><th class="px-5 py-3 text-center">HR</th><th class="px-5 py-3 text-center">Inventory</th><th class="px-5 py-3 text-center">Sales</th><th class="px-5 py-3 text-center">Finance</th><th class="px-5 py-3 text-center">System</th><th class="px-5 py-3 text-left">Users</th></tr></thead>
+                  <tbody class="divide-y divide-gray-50">
+                    <tr class="hover:bg-orange-50/30">
+                      <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 bg-red-100 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></div><span class="font-semibold text-gray-800">Admin</span></div></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-gray-500 text-sm">2 users</td>
+                    </tr>
+                    <tr class="hover:bg-orange-50/30">
+                      <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 bg-orange-100 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><span class="font-semibold text-gray-800">HR Manager</span></div></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-gray-500 text-sm">5 users</td>
+                    </tr>
+                    <tr class="hover:bg-orange-50/30">
+                      <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 bg-amber-100 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div><span class="font-semibold text-gray-800">Finance Officer</span></div></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-gray-500 text-sm">3 users</td>
+                    </tr>
+                    <tr class="hover:bg-orange-50/30">
+                      <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div><span class="font-semibold text-gray-800">Sales Executive</span></div></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-gray-500 text-sm">8 users</td>
+                    </tr>
+                    <tr class="hover:bg-orange-50/30">
+                      <td class="px-5 py-3.5"><div class="flex items-center gap-2"><div class="w-7 h-7 bg-green-100 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div><span class="font-semibold text-gray-800">Inventory Mgr</span></div></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-active px-2 py-0.5 rounded-full text-xs font-semibold">Full</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-processing px-2 py-0.5 rounded-full text-xs font-semibold">Read</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-center"><span class="badge-inactive px-2 py-0.5 rounded-full text-xs font-semibold">None</span></td>
+                      <td class="px-5 py-3.5 text-gray-500 text-sm">4 users</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Notifications Settings -->
+          <div id="tab-notifications" class="tab-panel hidden">
+            <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+              <h3 class="font-bold text-gray-900 mb-5">Notification Preferences</h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between py-3 border-b border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Low Stock Alerts</p><p class="text-xs text-gray-400">Notify when items fall below minimum threshold</p></div>
+                  <div class="flex items-center gap-2"><span class="text-xs text-green-600 font-medium">Enabled</span><div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div></div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">New Order Notifications</p><p class="text-xs text-gray-400">Alert when a new order is placed</p></div>
+                  <div class="flex items-center gap-2"><span class="text-xs text-green-600 font-medium">Enabled</span><div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div></div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Payroll Reminders</p><p class="text-xs text-gray-400">Monthly payroll processing reminders</p></div>
+                  <div class="flex items-center gap-2"><span class="text-xs text-green-600 font-medium">Enabled</span><div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div></div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-b border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Invoice Overdue Alerts</p><p class="text-xs text-gray-400">Notify when invoices pass due date</p></div>
+                  <div class="flex items-center gap-2"><span class="text-xs text-green-600 font-medium">Enabled</span><div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div></div>
+                </div>
+                <div class="flex items-center justify-between py-3">
+                  <div><p class="font-medium text-gray-800 text-sm">Security Alerts</p><p class="text-xs text-gray-400">Failed login attempts and suspicious activity</p></div>
+                  <div class="flex items-center gap-2"><span class="text-xs text-green-600 font-medium">Enabled</span><div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security Settings -->
+          <div id="tab-security" class="tab-panel hidden">
+            <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+              <h3 class="font-bold text-gray-900 mb-5">Security Settings</h3>
+              <div class="space-y-5">
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Session Timeout (minutes)</label>
+                    <input type="number" value="60" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Max Login Attempts</label>
+                    <input type="number" value="5" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-t border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Two-Factor Authentication</p><p class="text-xs text-gray-400">Require 2FA for all admin accounts</p></div>
+                  <div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div>
+                </div>
+                <div class="flex items-center justify-between py-3 border-t border-gray-50">
+                  <div><p class="font-medium text-gray-800 text-sm">Password Complexity</p><p class="text-xs text-gray-400">Enforce strong password policy</p></div>
+                  <div class="w-10 h-5 bg-orange-500 rounded-full relative cursor-pointer"><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-white rounded-full shadow"></span></div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                  <p class="text-xs font-semibold text-amber-800 mb-1">Active Sessions</p>
+                  <p class="text-xs text-amber-700">24 active user sessions · <button onclick="showToast('All sessions terminated','warning')" class="underline font-medium">Terminate All</button></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Profile -->
+          <div id="tab-company" class="tab-panel hidden">
+            <div class="bg-white rounded-2xl border border-orange-100 shadow-sm p-6">
+              <h3 class="font-bold text-gray-900 mb-5">Company Profile</h3>
+              <div class="space-y-4">
+                <div class="flex items-center gap-5 mb-5 pb-5 border-b border-gray-50">
+                  <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-amber-400 rounded-2xl flex items-center justify-center text-white font-bold text-3xl shadow-md">N</div>
+                  <div>
+                    <p class="font-bold text-gray-900">Nexus Corporation</p>
+                    <p class="text-sm text-gray-400 mb-2">nexus-corp.com · Enterprise</p>
+                    <button onclick="showToast('Upload feature coming soon','info')" class="text-xs text-orange-500 font-semibold hover:underline">Change Logo →</button>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company Name</label>
+                    <input type="text" value="Nexus Corporation" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Registration No.</label>
+                    <input type="text" value="NX-2024-00142" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Industry</label>
+                    <select class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 bg-white">
+                      <option>Technology</option>
+                      <option>Manufacturing</option>
+                      <option>Retail</option>
+                      <option>Healthcare</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Employees</label>
+                    <input type="number" value="248" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400">
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Head Office Address</label>
+                  <textarea rows="2" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none">42 Innovation Drive, Tech Park, Colombo 03, Sri Lanka</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/sidebar.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    function showTab(name) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById('tab-' + name).classList.remove('hidden');
+      document.querySelectorAll('.settings-tab').forEach(b => {
+        const active = b.dataset.tab === name;
+        b.className = `settings-tab w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-left transition-all ${active ? 'bg-orange-500 text-white' : 'text-gray-600 hover:bg-orange-50 hover:text-orange-600'}`;
+      });
+    }
+
+    function saveSettings() {
+      showToast('Settings saved successfully', 'success');
+    }
+  </script>
+</body>
+</html>
